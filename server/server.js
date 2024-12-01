@@ -6,6 +6,8 @@ const PORT = process.env.SERVER_PORT;
 
 const { sequelize } = require('./models');
 
+const registerRouter = require('./api/register/route.register')
+
 /**
  * 시퀄라이저 연결
  */
@@ -18,12 +20,10 @@ sequelize.sync({ force: false })
   });
 
 
-app.use(express.json()); // JSON 요청을 처리
-app.use(express.urlencoded({ extended: true })); // URL-encoded 데이터 처리
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.send('Futsal Recruitment API is running!');
-});
+app.use("/user", registerRouter); 
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
