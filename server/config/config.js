@@ -1,25 +1,31 @@
-require('dotenv').config(); 
+require('dotenv').config();
+const env = process.env;
 
-module.exports = {
-  development: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASW,
-    database: process.env.DB_BASE,
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT
-  },
-  test: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASW,
-    database: `${process.env.DB_BASE}_test`,
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT
-  },
-  production: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASW,
-    database: `${process.env.DB_BASE}_prod`,
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT
-  }
+// 개발 서버
+const development = {
+  username: env.DB_USER,
+  password: env.DB_PASW,
+  database: env.DB_BASE,
+  host: env.DB_HOST,
+  dialect: env.DB_DIALECT
 };
+
+// 개인 서버
+const local = {
+  username: env.DB_USER,
+  password: env.DB_PASW,
+  database: env.DB_BASE,
+  host: env.DB_HOST,
+  dialect: env.DB_DIALECT
+}
+
+// 운영 서버
+const production = {
+  username: env.DB_USER,
+  password: env.DB_PASW,
+  database: env.DB_BASE,
+  host: env.DB_HOST,
+  dialect: env.DB_DIALECT
+}
+
+module.exports = { development, production, local }

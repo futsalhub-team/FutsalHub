@@ -7,6 +7,7 @@ const PORT = process.env.SERVER_PORT;
 const { sequelize } = require('./models');
 
 const registerRouter = require('./api/register/route.register')
+const teamRouter = require('./api/team/route.team')
 
 /**
  * 시퀄라이저 연결
@@ -24,6 +25,7 @@ sequelize.sync({ force: false })
   app.use(express.urlencoded({ extended: true }));
 
 app.use("/user", registerRouter); 
+app.use("/team", teamRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
