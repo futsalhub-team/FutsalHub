@@ -1,13 +1,14 @@
-const { Team } = require('../../../models');
+const { Team , TeamMember} = require('../../../models');
 const response = require('../../../util/response');
-const findTeamByTeamName = require('../service.team/findTeamByTeamName');
-const findUserById = require('../service.team/findUserByUserId.js');
+const findTeamByTeamName = require('../service.team/findTeamByTeamName.js');
+const findUserByUserId = require('../service.team/findUserByUserId.js');
+const findTeamByTeamId = require('../service.team/findTeamByTeamId.js');
 
 const createTeam = async (req, res) => {
     const { name , leaderId } = req.body;    
     try {
 
-        const checkExistUser = await findUserById(leaderId);
+        const checkExistUser = await findUserByUserId(leaderId);
 
         if(checkExistUser === false) { // 유저 존재 여부 체크
             return response(res, 500, '유저가 존재하지 않아 팀을 생성할 수 없습니다.');   
@@ -32,6 +33,34 @@ const createTeam = async (req, res) => {
     }
 };
 
+const addMember = async (req, res) => {
+    const { teamId, userId } = req.body;
+    try {
+        const team = await findTeamByTeamId(teamId);
+        if(!team) {
+            return response(res, 500, '팀이 존재하지 않습니다.');
+        }
+
+        const user = await findUserByUserId(userId);
+        if(!user) {
+            return response(res, 500, '유저가 존재하지 않습니다.');
+        }
+
+        const teamMember = await TeamMember.create({
+            teamId : teamId,
+            userId : userId
+        });
+
+
+        return response(res, 200, teamMember);
+    }
+    catch(err) {
+        console.error(err);
+        return response(res, 500, '팀원 추가 실패');
+    }
+
+}
+
 module.exports = {
-    createTeam
+    createTeam, addMember
 };

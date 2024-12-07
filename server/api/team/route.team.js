@@ -13,4 +13,12 @@ router.post('/create-team',
       teamController.createTeam
 );
 
+router.post('/add-member', 
+    validate([
+        body('teamId').isNumeric(),
+        body('userId').isNumeric()
+      ]),
+      teamController.addMember
+);
+
 module.exports = router;
