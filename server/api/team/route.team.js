@@ -21,4 +21,6 @@ router.post('/add-member',
       teamController.addMember
 );
 
+router.get('/get-teams', teamController.getTeamList);
+
 module.exports = router;

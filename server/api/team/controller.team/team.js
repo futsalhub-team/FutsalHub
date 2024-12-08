@@ -61,6 +61,16 @@ const addMember = async (req, res) => {
 
 }
 
+const getTeamList = async (req, res) => {
+    try {
+        const teamList = await Team.findAll();
+        return response(res, 200, teamList);
+    } catch (err) {
+        console.error(err);
+        return response(res, 500, '팀 리스트 조회 실패');
+    }
+}
+
 module.exports = {
-    createTeam, addMember
+    createTeam, addMember, getTeamList
 };
