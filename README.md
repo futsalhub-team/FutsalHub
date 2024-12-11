@@ -3,4 +3,4 @@
 ### 사용 기술
 |BACK|FRONT|
 |:---:|:---:|
-|ExpressJS|--미정--|
+|ExpressJS|Flutter|
