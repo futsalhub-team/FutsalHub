@@ -1,6 +1,7 @@
 require('dotenv').config(); // .env 파일 로드
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 const PORT = process.env.SERVER_PORT;
 
@@ -21,12 +22,13 @@ sequelize.sync({ force: false })
   });
 
 
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-app.use("/user", registerRouter); 
+app.use("/user", registerRouter);
 app.use("/team", teamRouter);
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
