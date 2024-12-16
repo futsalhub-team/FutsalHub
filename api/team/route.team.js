@@ -4,21 +4,21 @@ const teamController = require('./controller.team/team')
 const validate = require('../../middleware/validate')
 const { body } = require('express-validator');
 
-router.post('/create-team', 
-    validate([
-        body('name').isString(),
-        body('leaderId').isNumeric()
-      ]),
+router.post('/create-team',
+  validate([
+    body('name').isString(),
+    body('leaderId').isNumeric()
+  ]),
 
-      teamController.createTeam
+  teamController.createTeam
 );
 
-router.post('/add-member', 
-    validate([
-        body('teamId').isNumeric(),
-        body('userId').isNumeric()
-      ]),
-      teamController.addMember
+router.post('/add-member',
+  validate([
+    body('teamId').isNumeric(),
+    body('userId').isNumeric()
+  ]),
+  teamController.addMember
 );
 
 router.get('/get-teams', teamController.getTeamList);

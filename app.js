@@ -9,6 +9,7 @@ const { sequelize } = require('./models');
 
 const registerRouter = require('./api/register/route.register')
 const teamRouter = require('./api/team/route.team')
+const userRouter = require('./api/user/route.user')
 
 /**
  * 시퀄라이저 연결
@@ -26,8 +27,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use("/user", registerRouter);
+app.use("/register", registerRouter);
 app.use("/team", teamRouter);
+app.use("/user", userRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
