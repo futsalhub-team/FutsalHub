@@ -23,4 +23,11 @@ router.post('/add-member',
 
 router.get('/get-teams', teamController.getTeamList);
 
+router.post('/get-team-detail',
+  validate([
+    body('teamId').isNumeric()
+  ]),
+  teamController.getTeamDetail
+)
+
 module.exports = router;

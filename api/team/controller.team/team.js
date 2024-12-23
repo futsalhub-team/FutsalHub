@@ -71,6 +71,22 @@ const getTeamList = async (req, res) => {
     }
 }
 
+const getTeamDetail = async (req, res) => {
+    const { teamId } = req.body;
+    try {
+        const team = await findTeamByTeamId(teamId);
+        if(!team) {
+            return response(res, 500, '팀이 존재하지 않습니다.');
+        }
+
+        return response(res, 200, team);
+    } catch (err) {
+        console.error(err);
+        return response(res, 500, '팀 상세 조회 실패');
+    }
+}
+
+
 module.exports = {
-    createTeam, addMember, getTeamList
+    createTeam, addMember, getTeamList , getTeamDetail
 };
