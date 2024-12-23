@@ -30,4 +30,15 @@ router.post('/get-team-detail',
   teamController.getTeamDetail
 )
 
+router.post('/create-recruitment',
+  validate([
+    body('userId').isNumeric(),
+    body('title').isString(),
+    body('content').isString()
+  ]),
+  teamController.createRecruitment
+)
+
+router.get('/get-recruitments', teamController.getRecruitmentList);
+
 module.exports = router;
