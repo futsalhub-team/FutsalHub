@@ -29,6 +29,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.User = require('./User/User')(sequelize, Sequelize);
 db.Team = require('./Team/Team')(sequelize, Sequelize);
 db.TeamMember = require('./Team/TeamMember')(sequelize, Sequelize);
+db.TeamRecruitment = require('./Team/TeamRecruitment')(sequelize, Sequelize);
 
 // 관계 설정
 Object.keys(db).forEach(modelName => {
