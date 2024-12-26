@@ -14,33 +14,42 @@ const login = async (req, res) => {
         });
 
         if (!user) {
-            return response(res, 500, '존재하지 않는 유저입니다.');
+            return response(res, 401, '존재하지 않는 유저입니다.');
         }
 
         const checkPassword = await bcrypt.compare(password, user.password);
 
         if (!checkPassword) {
-            return response(res, 500, '비밀번호가 일치하지 않습니다.');
+            return response(res, 401, '비밀번호가 일치하지 않습니다.');
         }
 
-        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign(
+            { userId: user.id, loginId: user.loginId },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
 
-        return response(res, 200, { token: token });
+        return response(res, 200, { message: '로그인 성공', token });
 
     } catch (err) {
         console.error(err);
-        return response(res, 500, '로그인 실패');
+
+        if (err.name === 'SequelizeConnectionError') {
+            return response(res, 500, '데이터베이스 연결 오류');
+        }
+
+        return response(res, 500, '서버 오류로 인해 로그인에 실패했습니다.');
     }
 }
 
-const logout = async (req, res) => {
-    try {
-        return response(res, 200, '로그아웃 성공');
-    } catch (err) {
-        console.error(err);
-        return response(res, 500, '로그아웃 실패');
-    }
-}
+// const logout = async (req, res) => {
+//     try {
+//         return response(res, 200, '로그아웃 성공');
+//     } catch (err) {
+//         console.error(err);
+//         return response(res, 500, '로그아웃 실패');
+//     }
+// }
 
 module.exports = {
     login,

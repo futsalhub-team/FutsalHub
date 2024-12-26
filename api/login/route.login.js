@@ -12,3 +12,5 @@ router.post('/login',
     ]),
     loginController.login
 );
+
+router.post('/logout', loginController.logout);
