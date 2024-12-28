@@ -14,3 +14,5 @@ router.post('/login',
 );
 
 router.post('/logout', loginController.logout);
+
+module.exports = router;

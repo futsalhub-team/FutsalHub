@@ -42,16 +42,6 @@ const login = async (req, res) => {
     }
 }
 
-// const logout = async (req, res) => {
-//     try {
-//         return response(res, 200, '로그아웃 성공');
-//     } catch (err) {
-//         console.error(err);
-//         return response(res, 500, '로그아웃 실패');
-//     }
-// }
-
 module.exports = {
-    login,
-    logout
+    login
 };
