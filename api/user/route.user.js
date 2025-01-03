@@ -11,4 +11,11 @@ router.post('/read-user-detail',
     userController.readUserDetail
 );
 
+router.delete('/delete-user',
+    validate([
+        body('id').isNumeric()
+    ]),
+    userController.deleteUser
+);
+
 module.exports = router;
